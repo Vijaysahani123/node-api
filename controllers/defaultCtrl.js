@@ -9,8 +9,14 @@ function health(req,res){
     res.json(status); 
 }
 
+function author(req,res){
+    
+    res.status(200);
+    res.send('List of author')
+}
 
 module.exports = {
     get,
-    health
+    health,
+    author
 };

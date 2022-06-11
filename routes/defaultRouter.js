@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/',defaultCtrl.get);
 router.get('/health',defaultCtrl.health);
+router.get('/author',defaultCtrl.author);
 
 
 module.exports=router;
