@@ -25,21 +25,60 @@ class bookCtrl {
             }
         }
 
-        if(book){
-        res.status(200);
-        res.json(book);
-        }else{
+        if (book) {
+            res.status(200);
+            res.json(book);
+        } else {
             res.status(404)
             res.send('not found')
         }
     }
 
-    create(req, res) {
-        const payload = req.body;
-        books.push(payload);
-        res.status(201);
-        res.end();
+    isPayloadValid(payload) {
+        return payload.id && payload.name && payload.price;
     }
+
+    create = (req, res) => {
+        const payload = req.body;
+
+        if (this.isPayloadValid(payload)) {
+            books.push(payload)
+
+            res.status(201);
+            res.send();
+        } else {
+            res.status(400);
+            res.send('invalid payload');
+
+        }
+    }
+
+    delete = (req, res) => {
+        const id = +req.params.id;
+        for (let i = 0; i < books.length; i++) {
+            if (books[i].id === id) {
+                books.splice(i, 1);
+                break;
+            }
+        }
+        res.status(204);
+        res.send();
+    }
+
+    update = (req, res) => {
+        const id = +req.params.id;
+        const payload = req.body;
+
+        for (let i = 0; i < books.length; i++) {
+            if (books[i].id === id) {
+                books[i].name = payload.name;
+                books[i].price = payload.price;
+            }
+        }
+        res.status(204);
+        res.send();
+    }
+
 }
 
 
