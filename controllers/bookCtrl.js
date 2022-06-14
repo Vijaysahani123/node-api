@@ -79,6 +79,24 @@ class bookCtrl {
         res.send();
     }
 
+    patch = (req, res) => {
+        const id = +req.params.id;
+        const payload = req.body;
+
+        const book = books.find(elem=>elem.id === id);
+        
+        if (book) {
+            for (let key in payload) {
+                book[key] = payload[key];
+            }
+            res.status(204);
+            res.send();
+        } else { 
+            res.status(404);
+            res.send('not found');
+        }
+    }
+
 }
 
 
